@@ -1,0 +1,7 @@
+# Railway profile (PGPT_PROFILES=railway), merged over the image's settings.yaml.
+# Turns on PrivateGPT's built-in HTTP Basic auth for the API. start.sh builds
+# PGPT_AUTH_HEADER from PRIVATEGPT_USERNAME and PRIVATEGPT_PASSWORD.
+server:
+  auth:
+    enabled: true
+    secret: ${PGPT_AUTH_HEADER}
