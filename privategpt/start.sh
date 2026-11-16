@@ -22,4 +22,4 @@ if [ "${PGPT_WAIT_FOR_MODELS:-true}" = "true" ]; then
   python3 /home/worker/app/railway/wait_for_models.py || true
 fi
 
-exec private-gpt serve --host "${PGPT_BIND_HOST:-::}" --port "${PORT:-8080}"
+exec private-gpt serve --host "${PGPT_BIND_HOST:-0.0.0.0}" --port "${PORT:-8080}"
