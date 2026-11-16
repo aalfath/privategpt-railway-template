@@ -19,7 +19,7 @@ The API is protected by PrivateGPT's built-in HTTP Basic auth. The username is `
 - `privategpt/wait_for_models.py` serves `/health` while the model server is still downloading, so a first deploy doesn't crash-loop on "Default model not found".
 - The workbench's default API URL is patched to use the page's own origin. Upstream rewrites it to `http://127.0.0.1:<port>`, which a browser can't reach behind a public domain.
 - CORS is off by default (`PGPT_CORS_ENABLED=false`); server-side API clients are unaffected.
-- `ollama/start.sh` starts `ollama serve` on `[::]:11434` and pulls the configured models.
+- `ollama/start.sh` starts `ollama serve` on `[::]:11434`, pulls the configured models and sets each model's `num_thread` to fit the container's CPU quota. Without that, llama.cpp starts one thread per host core (48 on Railway's hosts), gets throttled, and a single embedding call can take minutes.
 
 ## Variables
 
@@ -33,6 +33,7 @@ The API is protected by PrivateGPT's built-in HTTP Basic auth. The username is `
 | Ollama | `OLLAMA_LLM_MODEL` | `qwen3:1.7b` | Chat model pulled on start |
 | Ollama | `OLLAMA_EMBEDDING_MODEL` | `mxbai-embed-large:335m` | Embedding model pulled on start (1024 dimensions, matches PrivateGPT's default) |
 | Ollama | `OLLAMA_CONTEXT_LENGTH` | `16384` | Context window Ollama gives each model |
+| Ollama | `OLLAMA_NUM_THREADS` | not set | Optional. CPU threads per model; by default the CPU quota minus 2, at most 16 |
 
 Use explicit model tags (`name:tag`): PrivateGPT matches model ids exactly as Ollama lists them, so `mxbai-embed-large` (listed as `mxbai-embed-large:latest`) would not be found.
 
