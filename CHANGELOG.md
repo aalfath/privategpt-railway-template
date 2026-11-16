@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1-2 (2026-11-16)
+
+- README: Deploy on Railway button for the published template (`privategpt`). No change to the services.
+
 ## 1.0.1-1 (2026-11-16)
 
 First release.
