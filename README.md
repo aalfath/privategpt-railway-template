@@ -1,3 +1,5 @@
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/privategpt?utm_medium=integration&utm_source=button&utm_campaign=privategpt)
+
 # PrivateGPT on Railway
 
 A one-click Railway template for [PrivateGPT](https://github.com/zylon-ai/private-gpt), the open-source API layer from Zylon for private AI apps: document ingestion, retrieval with citations, agentic RAG, tools and MCP connectors, behind a Claude-style Messages API, plus a built-in workbench UI.
