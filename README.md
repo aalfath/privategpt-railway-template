@@ -41,8 +41,9 @@ To use OpenAI or another hosted provider instead, set `OPENAI_API_BASE`, `OPENAI
 ## Using it
 
 1. Open the PrivateGPT domain at `/ui/`.
-2. In the workbench settings, turn on Basic Auth and enter `admin` and the `PRIVATEGPT_PASSWORD` from the PrivateGPT service's Variables tab.
-3. API clients send the same credentials as HTTP Basic auth, for example `curl -u admin:PASSWORD https://YOUR-DOMAIN/v1/models`.
+2. In the guided setup, keep the base URL (your Railway domain), open **Authentication (HTTP Basic Auth)** and enter `admin` and the `PRIVATEGPT_PASSWORD` from the PrivateGPT service's Variables tab, then click **Save and check**.
+3. Upload documents and chat. Answers about your documents come with citations.
+4. API clients send the same credentials as HTTP Basic auth, for example `curl -u admin:PASSWORD https://YOUR-DOMAIN/v1/models`.
 
 ## Updates
 
