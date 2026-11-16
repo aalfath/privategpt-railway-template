@@ -7,7 +7,7 @@ RUN chmod +x /railway/start.sh
 # Listen on IPv6 and IPv4 so Railway's private network can reach it.
 ENV OLLAMA_HOST=[::]:11434 \
     OLLAMA_LLM_MODEL=qwen3:1.7b \
-    OLLAMA_EMBEDDING_MODEL=mxbai-embed-large \
+    OLLAMA_EMBEDDING_MODEL=mxbai-embed-large:335m \
     OLLAMA_CONTEXT_LENGTH=16384 \
     OLLAMA_KEEP_ALIVE=30m
 

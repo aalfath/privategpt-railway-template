@@ -59,10 +59,7 @@ def list_models(api_base, api_key):
         data = json.load(r)
     ids = set()
     for m in data.get("data", []):
-        mid = m.get("id", "")
-        ids.add(mid)
-        if mid.endswith(":latest"):
-            ids.add(mid[: -len(":latest")])
+        ids.add(m.get("id", ""))
     return ids
 
 
@@ -75,8 +72,12 @@ def ready():
         except Exception as e:
             print(f"[railway] model server {api_base} not ready: {e}", flush=True)
             return False
-        if model not in ids and model + ":latest" not in ids:
-            print(f"[railway] waiting for model '{model}' on {api_base}", flush=True)
+        # PrivateGPT matches model ids exactly, so do the same here.
+        if model not in ids:
+            hint = ""
+            if model + ":latest" in ids:
+                hint = f" (the server lists '{model}:latest': use that exact id)"
+            print(f"[railway] waiting for model '{model}' on {api_base}{hint}", flush=True)
             return False
     return True
 

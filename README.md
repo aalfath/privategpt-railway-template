@@ -9,7 +9,7 @@ A one-click Railway template for [PrivateGPT](https://github.com/zylon-ai/privat
 | **PrivateGPT** | [`privategpt/`](privategpt) — `zylonai/private-gpt:1.0.1@sha256:d4ae47c8…` | yes (`/ui/` workbench, API, `/docs`) | `/home/worker/app/local_data` (vector store, documents, skills database) |
 | **Ollama** | [`ollama/`](ollama) — `ollama/ollama:0.40.16@sha256:910d0d81…` | no (private network only) | `/root/.ollama` (models) |
 
-On its first start, Ollama downloads `qwen3:1.7b` (chat, about 1.4 GB) and `mxbai-embed-large` (embeddings, about 670 MB). PrivateGPT answers its health check and waits until both models are listed, then starts. Nothing is sent to an outside AI provider.
+On its first start, Ollama downloads `qwen3:1.7b` (chat, about 1.4 GB) and `mxbai-embed-large:335m` (embeddings, about 670 MB). PrivateGPT answers its health check and waits until both models are listed, then starts. Nothing is sent to an outside AI provider.
 
 The API is protected by PrivateGPT's built-in HTTP Basic auth. The username is `admin` and the password is generated at deploy time (`PRIVATEGPT_PASSWORD` on the PrivateGPT service). PrivateGPT refuses to start without a password.
 
@@ -31,8 +31,10 @@ The API is protected by PrivateGPT's built-in HTTP Basic auth. The username is `
 | PrivateGPT | `PGPT_LLM_DEFAULT` | `${{Ollama.OLLAMA_LLM_MODEL}}` | Default chat model |
 | PrivateGPT | `PGPT_EMBEDDING_DEFAULT` | `${{Ollama.OLLAMA_EMBEDDING_MODEL}}` | Default embedding model |
 | Ollama | `OLLAMA_LLM_MODEL` | `qwen3:1.7b` | Chat model pulled on start |
-| Ollama | `OLLAMA_EMBEDDING_MODEL` | `mxbai-embed-large` | Embedding model pulled on start (1024 dimensions, matches PrivateGPT's default) |
+| Ollama | `OLLAMA_EMBEDDING_MODEL` | `mxbai-embed-large:335m` | Embedding model pulled on start (1024 dimensions, matches PrivateGPT's default) |
 | Ollama | `OLLAMA_CONTEXT_LENGTH` | `16384` | Context window Ollama gives each model |
+
+Use explicit model tags (`name:tag`): PrivateGPT matches model ids exactly as Ollama lists them, so `mxbai-embed-large` (listed as `mxbai-embed-large:latest`) would not be found.
 
 To use OpenAI or another hosted provider instead, set `OPENAI_API_BASE`, `OPENAI_API_KEY`, `PGPT_LLM_DEFAULT` and `PGPT_EMBEDDING_DEFAULT` (and `PGPT_EMBED_DIM` if the embedding size isn't 1024) on PrivateGPT, then remove the Ollama service. See [PrivateGPT's docs](https://docs.privategpt.dev/).
 
